@@ -88,20 +88,20 @@ public class Main {
         akcjaNaTekscie(tekst, n -> System.out.println(n.toUpperCase()));
         System.out.println("\n");
 
-        System.out.println(generatorWartosciDomyslnej(null, "Guest"));
-        System.out.println(generatorWartosciDomyslnej("", "Guest"));
-        System.out.println(generatorWartosciDomyslnej("Adrian", "Guest"));
+        System.out.println(generatorWartosciDomyslnej(null, () -> "Guest"));
+        System.out.println(generatorWartosciDomyslnej("", () -> "Guest"));
+        System.out.println(generatorWartosciDomyslnej("Adrian", () -> "Guest"));
         System.out.println("\n");
 
-        System.out.println(opreacjeNaDwoch(5, 5, (n, m) -> n + m));
-        System.out.println(opreacjeNaDwoch(5, 5, (n, m) -> n * m));
-        System.out.println(opreacjeNaDwoch(5, 6, (n, m) -> Math.max(n, m)));
+        System.out.println(operacjeNaDwoch(5, 5, (n, m) -> n + m));
+        System.out.println(operacjeNaDwoch(5, 5, (n, m) -> n * m));
+        System.out.println(operacjeNaDwoch(5, 6, (n, m) -> Math.max(n, m)));
         System.out.println("\n");
 
-        System.out.println(sprawdzenieTekstu2(tekst, 5, (n, m) -> n.length() > m));
+        System.out.println(sprawdzenieTekstu2(tekst, 5, (n, m) -> n.length() >= m));
         System.out.println("\n");
 
-        imieWiek("Karol", 27, (n,m) -> System.out.println(n + " ma " + m + " lat"));
+        imieWiek("Karol", 27, (n, m) -> System.out.println(n + " ma " + m + " lat"));
     }
 
     //metody po staremu
@@ -160,13 +160,13 @@ public class Main {
         consumer.accept(tekst);
     }
 
-    static String generatorWartosciDomyslnej(String imie, String wartoscDomyslna) {
+    static String generatorWartosciDomyslnej(String imie, Supplier<String> supplier) {
         if (imie != null && !imie.isEmpty()) {
             return imie;
-        } else return wartoscDomyslna;
+        } else return supplier.get();
     }
 
-    static Integer opreacjeNaDwoch(Integer liczba1, Integer liczba2, BiFunction<Integer, Integer, Integer> function) {
+    static Integer operacjeNaDwoch(Integer liczba1, Integer liczba2, BiFunction<Integer, Integer, Integer> function) {
         return function.apply(liczba1, liczba2);
     }
 
@@ -174,9 +174,10 @@ public class Main {
         return predicate.test(tekst, liczba);
     }
 
-    static void imieWiek(String imie, Integer wiek, BiConsumer<String, Integer> consumer){
+    static void imieWiek(String imie, Integer wiek, BiConsumer<String, Integer> consumer) {
         consumer.accept(imie, wiek);
     }
+
 
     // - null -> ma zwrócić "Guest"
 // - "" -> ma zwrócić "Guest"

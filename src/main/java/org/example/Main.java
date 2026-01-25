@@ -80,7 +80,7 @@ public class Main {
 
         System.out.println(warunekNaTekscie(tekst, n -> n.length() >= 5));
         System.out.println(warunekNaTekscie(tekst, n -> n.startsWith("A")));
-        System.out.println(warunekNaTekscie(tekst, n -> n.contains(" ")));
+        System.out.println(warunekNaTekscie(tekst, n -> !n.contains(" ")));
         System.out.println("\n");
 
         akcjaNaTekscie(tekst, System.out::println);
